@@ -1,0 +1,5 @@
+mutation createPost {
+  createPost(text: "hello") {
+    id, text
+  }
+}

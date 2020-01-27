@@ -1,0 +1,67 @@
+# https://github.com/graphql-java-kickstart/graphql-spring-boot
+graphql.tools:
+  schema-location-pattern: "graphql/schema/*.graphql"
+  # Enable or disable the introspection query. Disabling it puts your server in contravention of the GraphQL
+  # specification and expectations of most clients, so use this option with caution
+  introspection-enabled: true
+
+graphql:
+  servlet:
+    enabled: true
+    tracing-enabled: true
+    actuator-metrics: true
+    mapping: /graphql
+    corsEnabled: true
+    # if you want to @ExceptionHandler annotation for custom GraphQLErrors
+    exception-handlers-enabled: true
+#    contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
+
+graphql.playground:
+  enabled: true
+  mapping: /gql
+  endpoint: /graphql
+  #  subscriptionsEndpoint: /subscriptions
+  #  staticFolder.basePath: my-playground-resources-folder
+  pageTitle: Playground
+  cdn:
+    enabled: false
+    version: latest
+  settings:
+    editor.cursorShape: line
+    editor.fontFamily: "'Source Code Pro', 'Monaco', monospace"
+    editor.fontSize: 14
+    editor.reuseHeaders: true
+    editor.theme: dark
+    general.betaUpdates: false
+    prettier.printWidth: 80
+    prettier.tabWidth: 2
+    prettier.useTabs: false
+    request.credentials: omit
+    schema.polling.enable: false
+    schema.polling.endpointFilter: "*localhost*"
+    schema.polling.interval: 2000
+    schema.disableComments: true
+    tracing.hideTracingResponse: true
+  tabs:
+    - name: book
+      query: classpath:graphql/usage/book/book.graphql
+    - name: allBooks
+      query: classpath:graphql/usage/book/allBooks.graphql
+    - name: addNewBook
+      query: classpath:graphql/usage/book/addNewBook.graphql
+    - name: setBookName
+      query: classpath:graphql/usage/book/setBookName.graphql
+
+    - name: createPost
+      query: classpath:graphql/usage/blog/createPost.graphql
+    - name: comments
+      query: classpath:graphql/usage/blog/comments.graphql
+
+#    - name: Example Tab
+#      query: classpath:exampleQuery.graphql
+#      headers:
+#        SomeHeader: Some value
+#      variables: classpath:variables.json
+#      responses:
+#        - classpath:exampleResponse1.json
+#        - classpath:exampleResponse2.json

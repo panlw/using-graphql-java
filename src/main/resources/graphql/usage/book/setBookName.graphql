@@ -1,0 +1,3 @@
+mutation setBookName {
+  setBookName(id: "book-1", name: "world")
+}

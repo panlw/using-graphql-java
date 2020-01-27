@@ -1,0 +1,5 @@
+mutation addNewBook {
+  addNewBook(newBook: {id: 1, name: "hello"}) {
+    id, name
+  }
+}

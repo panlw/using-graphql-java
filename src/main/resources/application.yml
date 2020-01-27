@@ -1,0 +1,18 @@
+# https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+
+logging.config: classpath:log4j2-dev.xml
+
+spring.application.name: book-details
+spring.profiles.include: graphql
+
+servlet.multipart:
+  enabled: true
+  location: /tmp
+
+server.port: 9001
+
+management.endpoints.web.base-path: /ops
+management.endpoints.web.exposure.include: health,info,metrics,logfile,beans,mappings
+
+graphql.servlet:
+  actuator-metrics: true

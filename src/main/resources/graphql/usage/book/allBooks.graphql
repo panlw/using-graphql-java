@@ -1,0 +1,11 @@
+{
+  allBooks {
+    id
+    name
+    pageCount
+    author {
+      firstName
+      lastName
+    }
+  }
+}

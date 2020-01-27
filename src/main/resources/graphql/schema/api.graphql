@@ -1,0 +1,18 @@
+type Query {
+  post(id: ID!): Post
+
+  book(id: ID!): Book
+  allBooks: [Book]
+}
+
+input NewBook {
+  id: ID!
+  name: String!
+}
+
+type Mutation {
+  createPost(text: String!): Post
+
+  addNewBook(newBook: NewBook): Book
+  setBookName(id: ID!, name: String!): Boolean
+}
