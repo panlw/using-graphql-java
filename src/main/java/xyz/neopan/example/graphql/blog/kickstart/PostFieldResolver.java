@@ -1,9 +1,8 @@
-package xyz.neopan.example.graphql.blog.resolver;
+package xyz.neopan.example.graphql.blog.kickstart;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import xyz.neopan.example.graphql.blog.model.Comment;
 import xyz.neopan.example.graphql.blog.model.Post;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,8 +12,7 @@ import java.util.stream.LongStream;
  * @author neo.pan
  * @since 2020/1/27
  */
-@Component
-public class PostResolver implements GraphQLResolver<Post> {
+class PostFieldResolver implements GraphQLResolver<Post> {
 
     List<Comment> getComments(Post post) {
         return LongStream.range(1, 11)

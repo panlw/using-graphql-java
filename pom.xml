@@ -16,14 +16,31 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <graphql.version>6.0.1</graphql.version>
+    <guava.version>28.2-jre</guava.version>
+    <graphql.version>13.0</graphql.version>
+    <graphql.webmvc.version>1.0</graphql.webmvc.version>
+    <graphql.kickstart.version>6.0.1</graphql.kickstart.version>
   </properties>
 
   <dependencies>
 
+    <!-- Java Enhancement -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope><!-- compile only -->
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
+
+    <!-- Logging: Log4J2 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
+      <scope>runtime</scope>
       <exclusions>
         <exclusion>
           <groupId>org.springframework.boot</groupId>
@@ -37,23 +54,73 @@
       <scope>runtime</scope>
     </dependency>
 
+    <!-- GraphQL -->
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope><!-- compile only -->
+      <artifactId>graphql-java</artifactId>
+      <groupId>com.graphql-java</groupId>
+      <version>${graphql.version}</version>
     </dependency>
+
+    <!-- GraphQL Web MVC with manually Schema Construction -->
+    <dependency>
+      <groupId>com.graphql-java</groupId>
+      <artifactId>graphql-java-spring-boot-starter-webmvc</artifactId>
+      <version>${graphql.webmvc.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>graphql-java</artifactId>
+          <groupId>com.graphql-java</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- GraphQL Servlet with auto Schema Construction via Resolvers -->
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphql-spring-boot-starter</artifactId>
+      <version>${graphql.kickstart.version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>guava</artifactId>
+          <groupId>com.google.guava</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!--== Ops ==-->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
+    <!--== Dev ==-->
+
+    <!-- Spring Boot HMR -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
+
+    <!-- GraphQL Tools: Playground -->
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>playground-spring-boot-starter</artifactId>
+      <version>${graphql.kickstart.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- GraphQL Tools: Voyager -->
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>voyager-spring-boot-starter</artifactId>
+      <version>${graphql.kickstart.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <!-- Spring Boot Test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -66,37 +133,22 @@
       </exclusions>
     </dependency>
 
+    <!-- GraphQL Test -->
     <dependency>
       <groupId>com.graphql-java-kickstart</groupId>
-      <artifactId>graphql-spring-boot-starter</artifactId>
-      <version>${graphql.version}</version>
+      <artifactId>graphql-spring-boot-starter-test</artifactId>
+      <version>${graphql.kickstart.version}</version>
+      <scope>test</scope>
       <exclusions>
+        <exclusion>
+          <artifactId>graphql-java</artifactId>
+          <groupId>com.graphql-java</groupId>
+        </exclusion>
         <exclusion>
           <artifactId>guava</artifactId>
           <groupId>com.google.guava</groupId>
         </exclusion>
       </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>com.graphql-java-kickstart</groupId>
-      <artifactId>playground-spring-boot-starter</artifactId>
-      <version>${graphql.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.graphql-java-kickstart</groupId>
-      <artifactId>voyager-spring-boot-starter</artifactId>
-      <version>${graphql.version}</version>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.graphql-java-kickstart</groupId>
-      <artifactId>graphql-spring-boot-starter-test</artifactId>
-      <version>${graphql.version}</version>
-      <scope>test</scope>
     </dependency>
 
   </dependencies>

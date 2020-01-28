@@ -1,18 +1,17 @@
-package xyz.neopan.example.graphql.book;
+package xyz.neopan.example.graphql.book.kickstart;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import xyz.neopan.example.graphql.book.input.NewBookInput;
-import xyz.neopan.example.graphql.book.model.Book;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import xyz.neopan.example.graphql.book.BookDataFetchers;
+import xyz.neopan.example.graphql.book.input.NewBookInput;
+import xyz.neopan.example.graphql.book.model.Book;
 
 /**
  * @author neo.pan
  * @since 2020/1/27
  */
-@Component
-public class BookMutationResolver implements GraphQLMutationResolver {
+class BookMutationResolver implements GraphQLMutationResolver {
 
     @Autowired
     BookDataFetchers dataFetchers;

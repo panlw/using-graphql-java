@@ -1,9 +1,8 @@
 package xyz.neopan.example.graphql.book;
 
+import graphql.schema.DataFetcher;
 import xyz.neopan.example.graphql.book.model.Author;
 import xyz.neopan.example.graphql.book.model.Book;
-import graphql.schema.DataFetcher;
-import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.Optional;
  * @author neo.pan
  * @since 2020/1/25
  */
-@Component
 public class BookDataFetchers {
 
     private static List<Book> books = Arrays.asList(
@@ -48,7 +46,7 @@ public class BookDataFetchers {
         return buildBook(id, name, 0, authors.get(0).getId());
     }
 
-    public DataFetcher<Book> getBookByIdDataFetcher() {
+    public DataFetcher<Book> getBookDataFetcher() {
         return dataFetchingEnvironment -> {
             String bookId = dataFetchingEnvironment.getArgument("id");
             return getBook(bookId).orElse(null);
@@ -61,7 +59,7 @@ public class BookDataFetchers {
             .findFirst();
     }
 
-    public DataFetcher<Author> getAuthorDataFetcher() {
+    public DataFetcher<Author> getBookAuthorDataFetcher() {
         return dataFetchingEnvironment -> {
             final Book book = dataFetchingEnvironment.getSource();
             return getAuthor(book.getAuthorId()).orElse(null);

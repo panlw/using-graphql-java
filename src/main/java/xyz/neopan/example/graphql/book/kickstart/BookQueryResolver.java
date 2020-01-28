@@ -1,9 +1,9 @@
-package xyz.neopan.example.graphql.book;
+package xyz.neopan.example.graphql.book.kickstart;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import xyz.neopan.example.graphql.book.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import xyz.neopan.example.graphql.book.BookDataFetchers;
+import xyz.neopan.example.graphql.book.model.Book;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +12,7 @@ import java.util.Optional;
  * @author neo.pan
  * @since 2020/1/27
  */
-@Component
-public class BookQueryResolver implements GraphQLQueryResolver {
+class BookQueryResolver implements GraphQLQueryResolver {
 
     @Autowired
     BookDataFetchers dataFetchers;

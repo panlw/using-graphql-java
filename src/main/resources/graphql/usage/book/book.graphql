@@ -4,6 +4,7 @@
     name
     pageCount
     author {
+      id
       firstName
       lastName
     }

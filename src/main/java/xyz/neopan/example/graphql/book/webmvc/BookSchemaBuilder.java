@@ -1,33 +1,37 @@
-package xyz.neopan.example.graphql.deprecated;
+package xyz.neopan.example.graphql.book.webmvc;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
-import xyz.neopan.example.graphql.book.BookDataFetchers;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import xyz.neopan.example.graphql.api.GraphQLSchemaBuilder;
+import xyz.neopan.example.graphql.book.BookDataFetchers;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
-//@Component
-@Deprecated
-public class GraphQLProvider {
+/**
+ * @author neo.pan
+ * @since 2020/1/28
+ */
+public class BookSchemaBuilder implements GraphQLSchemaBuilder {
 
-    private GraphQLSchema schema;
+    public static final String SDL_FILE = "graphql/schema.graphql";
 
-    @PostConstruct
-    public void init() throws IOException {
-        URL url = Resources.getResource("graphql/schema/hello.graphql");
-        String sdl = Resources.toString(url, Charsets.UTF_8);
-        this.schema = buildSchema(sdl);
+    @Override
+    public GraphQLSchema build() throws Exception {
+        return buildSchema(loadSchemaSdl());
+    }
+
+    private String loadSchemaSdl() throws IOException {
+        final URL url = Resources.getResource(SDL_FILE);
+        return Resources.toString(url, Charsets.UTF_8);
     }
 
     private GraphQLSchema buildSchema(String sdl) {
@@ -38,20 +42,15 @@ public class GraphQLProvider {
     }
 
     @Autowired
-    BookDataFetchers dataFetchers;
+    private BookDataFetchers dataFetchers;
 
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
             .type(newTypeWiring("Query")
-                .dataFetcher("bookById", dataFetchers.getBookByIdDataFetcher()))
+                .dataFetcher("book", dataFetchers.getBookDataFetcher()))
             .type(newTypeWiring("Book")
-                .dataFetcher("author", dataFetchers.getAuthorDataFetcher()))
+                .dataFetcher("author", dataFetchers.getBookAuthorDataFetcher()))
             .build();
-    }
-
-    @Bean
-    public GraphQLSchema getSchema() {
-        return schema;
     }
 
 }
