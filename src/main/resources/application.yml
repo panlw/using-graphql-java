@@ -2,7 +2,7 @@
 
 logging.config: classpath:log4j2-dev.xml
 
-spring.application.name: book-details
+spring.application.name: using-graphql-java
 spring.profiles.include: graphql
 
 servlet.multipart:
@@ -11,8 +11,9 @@ servlet.multipart:
 
 server.port: 9001
 
-management.endpoints.web.base-path: /ops
-management.endpoints.web.exposure.include: health,info,metrics,logfile,beans,mappings
+management.endpoints.web:
+  base-path: /ops
+  exposure.include: health,info,metrics,logfile,beans,mappings
 
 graphql.servlet:
   actuator-metrics: true
