@@ -7,6 +7,8 @@ import xyz.neopan.example.graphql.book.BookDataFetchers;
 import xyz.neopan.example.graphql.book.input.NewBookInput;
 import xyz.neopan.example.graphql.book.model.Book;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * @author neo.pan
  * @since 2020/1/27
@@ -16,14 +18,17 @@ class BookMutationResolver implements GraphQLMutationResolver {
     @Autowired
     BookDataFetchers dataFetchers;
 
-    Book addNewBook(NewBookInput input) {
-        return BookDataFetchers.buildBook(input.getId(), input.getName());
+    CompletableFuture<Book> addNewBook(NewBookInput input) {
+        return CompletableFuture.completedFuture(
+            BookDataFetchers.buildBook(input.getId(), input.getName()));
     }
 
-    boolean setBookName(String id, String name) {
-        val book = dataFetchers.getBook(id);
-        book.ifPresent(x -> x.setName(name));
-        return book.isPresent();
+    CompletableFuture<Boolean> setBookName(String id, String name) {
+        return CompletableFuture.supplyAsync(() -> {
+            val book = dataFetchers.getBook(id);
+            book.ifPresent(x -> x.setName(name));
+            return book.isPresent();
+        });
     }
 
 }

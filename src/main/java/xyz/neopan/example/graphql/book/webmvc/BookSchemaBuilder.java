@@ -2,6 +2,7 @@ package xyz.neopan.example.graphql.book.webmvc;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
+import graphql.schema.AsyncDataFetcher;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
@@ -47,9 +48,11 @@ public class BookSchemaBuilder implements GraphQLSchemaBuilder {
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
             .type(newTypeWiring("Query")
-                .dataFetcher("book", dataFetchers.getBookDataFetcher()))
+                .dataFetcher("book", AsyncDataFetcher.async(
+                    dataFetchers.getBookDataFetcher())))
             .type(newTypeWiring("Book")
-                .dataFetcher("author", dataFetchers.getBookAuthorDataFetcher()))
+                .dataFetcher("author", AsyncDataFetcher.async(
+                    dataFetchers.getBookAuthorDataFetcher())))
             .build();
     }
 

@@ -7,6 +7,7 @@ import xyz.neopan.example.graphql.book.model.Book;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author neo.pan
@@ -17,12 +18,12 @@ class BookQueryResolver implements GraphQLQueryResolver {
     @Autowired
     BookDataFetchers dataFetchers;
 
-    Optional<Book> getBook(String id) {
-        return dataFetchers.getBook(id);
+    CompletableFuture<Optional<Book>> getBook(String id) {
+        return CompletableFuture.completedFuture(dataFetchers.getBook(id));
     }
 
-    List<Book> allBooks() {
-        return dataFetchers.getBooks();
+    CompletableFuture<List<Book>> allBooks() {
+        return CompletableFuture.completedFuture(dataFetchers.getBooks());
     }
 
 }

@@ -9,6 +9,7 @@ import xyz.neopan.example.graphql.book.model.Author;
 import xyz.neopan.example.graphql.book.model.Book;
 
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author neo.pan
@@ -21,10 +22,11 @@ class BookFieldResolver implements GraphQLResolver<Book> {
     BookDataFetchers dataFetchers;
 
     @Nullable
-    Optional<Author> getAuthor(Book book) {
+    CompletableFuture<Optional<Author>> getAuthor(Book book) {
         log.info("[BOOK] resolve author of book {}: {}",
             book.getId(), book.getAuthorId());
-        return dataFetchers.getAuthor(book.getAuthorId());
+        return CompletableFuture.completedFuture(
+            dataFetchers.getAuthor(book.getAuthorId()));
     }
 
 }

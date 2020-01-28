@@ -5,6 +5,7 @@ import xyz.neopan.example.graphql.blog.model.Comment;
 import xyz.neopan.example.graphql.blog.model.Post;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
@@ -14,10 +15,12 @@ import java.util.stream.LongStream;
  */
 class PostFieldResolver implements GraphQLResolver<Post> {
 
-    List<Comment> getComments(Post post) {
-        return LongStream.range(1, 11)
-            .mapToObj(this::buildComment)
-            .collect(Collectors.toList());
+    CompletableFuture<List<Comment>> getComments(Post post) {
+        return CompletableFuture.supplyAsync(() ->
+            LongStream.range(1, 11)
+                .mapToObj(this::buildComment)
+                .collect(Collectors.toList())
+        );
     }
 
     private Comment buildComment(long id) {
