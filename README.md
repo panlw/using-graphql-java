@@ -17,9 +17,16 @@
 
 > BETTER than using `DataFetcher`
 
+
 ## [Using Data Loader](https://github.com/graphql-java/java-dataloader)
 
 > Resolve "N+1" fetch problem
+
+- https://github.com/graphql-java-kickstart/graphql-spring-boot/tree/master/example-request-scoped-dataloader
+- graphql.servlet.contextSetting: PER_REQUEST_WITH_INSTRUMENTATION (graphql.kickstart.execution.context.ContextSetting)
+- https://www.graphql-java.com/documentation/v13/data-fetching/
+- https://www.graphql-java.com/documentation/v13/batching/
+
 
 ## [Using WebSocket Subscription](https://github.com/graphql-java-kickstart/graphql-spring-boot/blob/master/example-graphql-subscription/)
 

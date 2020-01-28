@@ -5,16 +5,16 @@ graphql.tools:
   # specification and expectations of most clients, so use this option with caution
   introspection-enabled: true
 
-graphql:
-  servlet:
-    enabled: true
-    tracing-enabled: true
-    actuator-metrics: true
-    mapping: /graphql
-    corsEnabled: true
-    # if you want to @ExceptionHandler annotation for custom GraphQLErrors
-    exception-handlers-enabled: true
-#    contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
+graphql.servlet:
+  enabled: true
+  tracing-enabled: true
+  actuator-metrics: true
+  mapping: /graphql
+  corsEnabled: true
+  # if you want to @ExceptionHandler annotation for custom GraphQLErrors
+  exception-handlers-enabled: true
+  # graphql.kickstart.execution.context.ContextSetting
+  contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
 
 graphql.playground:
   enabled: true

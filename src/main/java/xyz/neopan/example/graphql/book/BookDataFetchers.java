@@ -1,6 +1,7 @@
 package xyz.neopan.example.graphql.book;
 
 import graphql.schema.DataFetcher;
+import lombok.extern.slf4j.Slf4j;
 import xyz.neopan.example.graphql.book.model.Author;
 import xyz.neopan.example.graphql.book.model.Book;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
  * @author neo.pan
  * @since 2020/1/25
  */
+@Slf4j
 public class BookDataFetchers {
 
     private static List<Book> books = Arrays.asList(
@@ -20,7 +22,7 @@ public class BookDataFetchers {
         buildBook("book-2", "Moby Dick",
             635, "author-2"),
         buildBook("book-3", "Interview with the vampire",
-            371, "author-x")
+            371, "author-1")
     );
 
     public static Book buildBook(
@@ -67,6 +69,7 @@ public class BookDataFetchers {
     }
 
     public Optional<Author> getAuthor(String authorId) {
+        log.info("[BOOK] fetch author by id: {}", authorId);
         return authors.stream()
             .filter(author -> author.getId().equals(authorId))
             .findFirst();
