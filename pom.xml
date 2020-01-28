@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>xyz.neopan</groupId>
+  <groupId>xyz.neopan.example</groupId>
   <artifactId>using-graphql-java</artifactId>
   <version>0.0.1</version>
   <description>Using graphql-java and graphql-java-kickstart on Spring Boot</description>
@@ -46,10 +46,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
     <dependency>

@@ -1,8 +1,8 @@
-package com.graphqljava.tutorial.bookdetails.blog.resolver;
+package xyz.neopan.example.graphql.blog.resolver;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-import com.graphqljava.tutorial.bookdetails.blog.model.Comment;
-import com.graphqljava.tutorial.bookdetails.blog.model.Post;
+import xyz.neopan.example.graphql.blog.model.Comment;
+import xyz.neopan.example.graphql.blog.model.Post;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

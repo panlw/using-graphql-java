@@ -1,4 +1,4 @@
-package com.graphqljava.tutorial.bookdetails;
+package xyz.neopan.example.graphql;
 
 import com.coxautodev.graphql.tools.ObjectMapperConfigurer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

@@ -1,7 +1,7 @@
-package com.graphqljava.tutorial.bookdetails.book;
+package xyz.neopan.example.graphql.book;
 
-import com.graphqljava.tutorial.bookdetails.book.model.Author;
-import com.graphqljava.tutorial.bookdetails.book.model.Book;
+import xyz.neopan.example.graphql.book.model.Author;
+import xyz.neopan.example.graphql.book.model.Book;
 import graphql.schema.DataFetcher;
 import org.springframework.stereotype.Component;
 

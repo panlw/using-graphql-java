@@ -1,8 +1,8 @@
-package com.graphqljava.tutorial.bookdetails.deprecated;
+package xyz.neopan.example.graphql.deprecated;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
-import com.graphqljava.tutorial.bookdetails.book.BookDataFetchers;
+import xyz.neopan.example.graphql.book.BookDataFetchers;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;

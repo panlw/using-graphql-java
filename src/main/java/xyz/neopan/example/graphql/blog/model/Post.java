@@ -1,4 +1,4 @@
-package com.graphqljava.tutorial.bookdetails.blog.model;
+package xyz.neopan.example.graphql.blog.model;
 
 import lombok.Builder;
 import lombok.Data;

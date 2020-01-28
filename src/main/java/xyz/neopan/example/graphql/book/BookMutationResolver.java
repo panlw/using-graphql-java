@@ -1,8 +1,8 @@
-package com.graphqljava.tutorial.bookdetails.book;
+package xyz.neopan.example.graphql.book;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
-import com.graphqljava.tutorial.bookdetails.book.input.NewBookInput;
-import com.graphqljava.tutorial.bookdetails.book.model.Book;
+import xyz.neopan.example.graphql.book.input.NewBookInput;
+import xyz.neopan.example.graphql.book.model.Book;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

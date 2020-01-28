@@ -1,4 +1,4 @@
-package com.graphqljava.tutorial.bookdetails.book.input;
+package xyz.neopan.example.graphql.book.input;
 
 import lombok.Data;
 

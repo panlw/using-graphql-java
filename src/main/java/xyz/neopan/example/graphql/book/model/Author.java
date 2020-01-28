@@ -1,4 +1,4 @@
-package com.graphqljava.tutorial.bookdetails.blog.model;
+package xyz.neopan.example.graphql.book.model;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @Builder
 @EqualsAndHashCode(of = "id")
-public class Comment {
-    private long id;
-    private String description;
+public class Author {
+    private String id;
+    private String firstName;
+    private String lastName;
 }

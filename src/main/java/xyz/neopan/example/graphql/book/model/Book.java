@@ -1,4 +1,4 @@
-package com.graphqljava.tutorial.bookdetails.book.model;
+package xyz.neopan.example.graphql.book.model;
 
 import lombok.Builder;
 import lombok.Data;

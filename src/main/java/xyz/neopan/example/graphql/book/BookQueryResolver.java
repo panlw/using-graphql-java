@@ -1,7 +1,7 @@
-package com.graphqljava.tutorial.bookdetails.book;
+package xyz.neopan.example.graphql.book;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.graphqljava.tutorial.bookdetails.book.model.Book;
+import xyz.neopan.example.graphql.book.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
