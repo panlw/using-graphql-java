@@ -1,4 +1,4 @@
-package xyz.neopan.example.graphql.api;
+package xyz.neopan.example.graphql.book.webmvc;
 
 import graphql.GraphQL;
 import lombok.RequiredArgsConstructor;

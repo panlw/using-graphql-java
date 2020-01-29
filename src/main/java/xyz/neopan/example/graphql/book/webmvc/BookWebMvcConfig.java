@@ -2,8 +2,6 @@ package xyz.neopan.example.graphql.book.webmvc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
-import xyz.neopan.example.graphql.api.GraphQLFactory;
-import xyz.neopan.example.graphql.api.GraphQLSchemaBuilder;
 import xyz.neopan.example.graphql.book.BookDataFetchers;
 
 /**
