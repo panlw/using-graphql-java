@@ -1,8 +1,11 @@
-import org.assertj.core.api.Assertions;
+package xyz.neopan.jdk;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author neo.pan
@@ -22,7 +25,7 @@ class CompletableFutureTests {
                 System.out.println("then.async: " + x + " -> " + y);
                 return y;
             });
-        Assertions.assertThat(f.get()).isEqualTo("1000");
+        assertThat(f.get()).isEqualTo("1000");
     }
 
     @Test
@@ -39,7 +42,7 @@ class CompletableFutureTests {
                 return y;
             });
         });
-        Assertions.assertThat(f.get()).isEqualTo("1000");
+        assertThat(f.get()).isEqualTo("1000");
     }
 
 }
