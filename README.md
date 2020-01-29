@@ -27,9 +27,13 @@
 - https://www.graphql-java.com/documentation/v13/data-fetching/
 - https://www.graphql-java.com/documentation/v13/batching/
 
+> Resolve authentication & authorization
+
+- TODO
 
 ## [Using WebSocket Subscription](https://github.com/graphql-java-kickstart/graphql-spring-boot/blob/master/example-graphql-subscription/)
 
+- TODO
 
 ## Unrecommended
 

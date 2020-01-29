@@ -22,8 +22,8 @@ class BookFieldResolver implements GraphQLResolver<Book> {
 
     @NotNull
     private DataLoader<String, Author> getAuthorDataLoader(DataFetchingEnvironment environment) {
-        return Objects.requireNonNull(environment.getDataLoader("bookAuthor"),
-            "[BOOK] No data loader named `bookAuthor` is registered.");
+        return Objects.requireNonNull(environment.getDataLoader("bookAuthorMap"),
+            "[BOOK] No data loader named `bookAuthorMap` is registered.");
     }
 
     CompletableFuture<Author> getAuthor(Book book, DataFetchingEnvironment environment) {

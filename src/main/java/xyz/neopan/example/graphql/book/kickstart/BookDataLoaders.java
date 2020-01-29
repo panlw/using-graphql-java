@@ -8,7 +8,12 @@ import xyz.neopan.example.graphql.book.BookDataFetchers;
 import xyz.neopan.example.graphql.book.model.Author;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -24,8 +29,7 @@ abstract class BookDataLoaders {
     @NotNull
     static DataLoader<String, Author> bookAuthorLoader(BookDataFetchers fetchers) {
         final DataLoaderOptions options = DataLoaderOptions.newOptions();
-//            .setCachingEnabled(false);
-        return new DataLoader<>(authorIds ->
+        return DataLoader.newDataLoader(authorIds ->
             fetchAuthorsAsync(fetchers, authorIds), options);
     }
 
@@ -42,6 +46,28 @@ abstract class BookDataLoaders {
             .peek(x -> log.info("[BOOK] load data via key: {}", x))
             .map(x -> fetchers.getAuthor(x).orElse(null))
             .collect(Collectors.toList());
+    }
+
+    @NotNull
+    static DataLoader<String, Author> bookAuthorMapLoader(BookDataFetchers fetchers) {
+        final DataLoaderOptions options = DataLoaderOptions.newOptions();
+        return DataLoader.newMappedDataLoader(authorIds ->
+            fetchAuthorMapAsync(fetchers, authorIds), options);
+    }
+
+    private static CompletionStage<Map<String, Author>> fetchAuthorMapAsync(
+        BookDataFetchers fetchers, Set<String> authorIds) {
+        return CompletableFuture.supplyAsync(() -> fetchAuthorMap(fetchers, authorIds));
+    }
+
+    private static Map<String, Author> fetchAuthorMap(
+        BookDataFetchers fetchers, Set<String> authorIds) {
+        return authorIds.stream()
+            .peek(x -> log.info("[BOOK] load data via key: {}", x))
+            .map(x -> fetchers.getAuthor(x).orElse(null))
+            .filter(Objects::nonNull).collect(Collectors.toMap(
+                Author::getId, Function.identity()
+            ));
     }
 
 }

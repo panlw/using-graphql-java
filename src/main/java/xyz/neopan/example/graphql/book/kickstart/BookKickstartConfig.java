@@ -33,6 +33,7 @@ public class BookKickstartConfig {
     private DataLoaderRegistry buildDataLoaderRegistry(BookDataFetchers fetchers) {
         DataLoaderRegistry registry = new DataLoaderRegistry();
         registry.register("bookAuthor", BookDataLoaders.bookAuthorLoader(fetchers));
+        registry.register("bookAuthorMap", BookDataLoaders.bookAuthorMapLoader(fetchers));
         return registry;
     }
 
