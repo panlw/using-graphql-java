@@ -16,25 +16,23 @@ import java.util.Map;
 public interface XyzDataLoaderRegistryBuilder {
 
     /**
+     * @return 构建器
+     */
+    static XyzDataLoaderRegistryBuilder newBuilder() {
+        return new DefaultBuilder();
+    }
+
+    /**
      * @param loaderName 数据加载器名
      * @param loader     数据加载器
-     * @return self
      */
-    XyzDataLoaderRegistryBuilder register(
-        String loaderName, DataLoader<?, ?> loader);
+    void register(String loaderName, DataLoader<?, ?> loader);
 
     /**
      * @return 数据加载器注册表
      */
     @NotNull
     DataLoaderRegistry build();
-
-    /**
-     * @return 新的构建器
-     */
-    static XyzDataLoaderRegistryBuilder newBuilder() {
-        return new DefaultBuilder();
-    }
 
     /**
      * 缺省构建器
@@ -44,10 +42,9 @@ public interface XyzDataLoaderRegistryBuilder {
         private Map<String, DataLoader<?, ?>> loaderMap = new HashMap<>();
 
         @Override
-        public XyzDataLoaderRegistryBuilder register(
+        public void register(
             String loaderName, DataLoader<?, ?> loader) {
             loaderMap.put(loaderName, loader);
-            return this;
         }
 
         @NotNull

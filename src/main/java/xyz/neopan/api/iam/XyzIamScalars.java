@@ -16,6 +16,7 @@ public class XyzIamScalars {
 
     @Bean
     GraphQLScalarType xyzIamUserIdScalar() {
+        log.info("[XYZ-GQL] scalar UID = XyzIamUserId <-> String");
         return GraphQLScalarType.newScalar()
             .name("UID")
             .coercing(new Coercing<XyzIamUserId, String>() {
