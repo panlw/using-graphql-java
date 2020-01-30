@@ -3,9 +3,9 @@ package xyz.neopan.example.graphql.book.kickstart;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import xyz.neopan.example.graphql.book.BookDataFetchers;
 import xyz.neopan.example.graphql.book.input.NewBookInput;
 import xyz.neopan.example.graphql.book.model.Book;
+import xyz.neopan.example.graphql.book.store.BookDataFetchers;
 
 import java.util.concurrent.CompletableFuture;
 

@@ -1,0 +1,3 @@
+mutation signIn($input: AuthSignInInput) {
+  signIn(input: $input) { token, name }
+}

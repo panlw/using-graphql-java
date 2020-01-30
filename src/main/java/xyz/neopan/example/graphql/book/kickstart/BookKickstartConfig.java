@@ -1,14 +1,9 @@
 package xyz.neopan.example.graphql.book.kickstart;
 
-import graphql.execution.instrumentation.Instrumentation;
-import graphql.execution.instrumentation.dataloader.DataLoaderDispatcherInstrumentation;
-import graphql.execution.instrumentation.dataloader.DataLoaderDispatcherInstrumentationOptions;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import org.dataloader.DataLoaderRegistry;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
-import xyz.neopan.example.graphql.book.BookDataFetchers;
+import xyz.neopan.api.gql.XyzDataLoaderRegistryBuilder;
+import xyz.neopan.example.graphql.book.store.BookDataFetchers;
 
 /**
  * 1. https://github.com/graphql-java-kickstart/graphql-spring-boot
@@ -24,31 +19,14 @@ import xyz.neopan.example.graphql.book.BookDataFetchers;
 public class BookKickstartConfig {
 
     @Bean
-    BookDataFetchers bookDataFetchers() {
+    BookDataFetchers bookDataFetchers(XyzDataLoaderRegistryBuilder builder) {
         log.info("[BOOK] bookDataFetchers");
-        return new BookDataFetchers();
-    }
-
-    @NotNull
-    private DataLoaderRegistry buildDataLoaderRegistry(BookDataFetchers fetchers) {
-        DataLoaderRegistry registry = new DataLoaderRegistry();
-        registry.register("bookAuthor", BookDataLoaders.bookAuthorLoader(fetchers));
-        registry.register("bookAuthorMap", BookDataLoaders.bookAuthorMapLoader(fetchers));
-        return registry;
-    }
-
-    @Bean
-    BookServletContextBuilder bookServletContextBuilder(BookDataFetchers fetchers) {
-        log.info("[BOOK] bookServletContextBuilder");
-        return new BookServletContextBuilder(() -> buildDataLoaderRegistry(fetchers));
-    }
-
-    @Bean
-    public Instrumentation bookInstrumentation() {
-        log.info("[BOOK] bookInstrumentation");
-        val options = DataLoaderDispatcherInstrumentationOptions
-            .newOptions().includeStatistics(true);
-        return new DataLoaderDispatcherInstrumentation(options);
+        BookDataFetchers fetchers = new BookDataFetchers();
+        builder.register("bookAuthor",
+            BookDataLoaders.bookAuthorLoader(fetchers));
+        builder.register("bookAuthorMap",
+            BookDataLoaders.bookAuthorMapLoader(fetchers));
+        return fetchers;
     }
 
     @Bean

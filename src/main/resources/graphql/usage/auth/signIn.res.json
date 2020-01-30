@@ -1,0 +1,12 @@
+{
+  "extensions": {},
+  "data": {
+    "signIn": {
+      "token": "xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "guest": false,
+      "idp": "iam",
+      "id": "usr-1",
+      "name": "Neo"
+    }
+  }
+}

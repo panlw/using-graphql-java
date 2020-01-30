@@ -1,0 +1,14 @@
+type AuthSubject {
+  token: String
+  guest: Boolean
+
+  idp: String!
+  id: ID!
+  name: String!
+}
+
+input AuthSignInInput {
+  id: ID!
+  name: String!
+  phone: String
+}

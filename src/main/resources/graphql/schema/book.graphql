@@ -5,6 +5,11 @@ type Book {
   author: Author
 }
 
+input NewBook {
+  id: ID!
+  name: String!
+}
+
 type Author {
   id: ID
   firstName: String

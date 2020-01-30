@@ -1,18 +1,18 @@
 type Query {
-  post(id: ID!): Post
+  subject: AuthSubject!
+
+  post(id: ID!): Post!
 
   book(id: ID!): Book
-  allBooks: [Book]
-}
-
-input NewBook {
-  id: ID!
-  name: String!
+  allBooks: [Book!]!
 }
 
 type Mutation {
-  createPost(text: String!): Post
+  signIn(input: AuthSignInInput): AuthSubject!
+  signOut: AuthSubject! # GUEST subject
 
-  addNewBook(newBook: NewBook): Book
-  setBookName(id: ID!, name: String!): Boolean
+  createPost(text: String!): Post!
+
+  addNewBook(newBook: NewBook): Book!
+  setBookName(id: ID!, name: String!): Boolean!
 }

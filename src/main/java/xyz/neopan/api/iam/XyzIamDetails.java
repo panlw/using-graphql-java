@@ -13,7 +13,7 @@ public interface XyzIamDetails extends XyzPrincipal {
 
         @Override
         public long getIdVal() {
-            return GUEST_ID;
+            return 0L;
         }
 
         @Override

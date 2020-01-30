@@ -2,7 +2,7 @@ package xyz.neopan.example.graphql.book.webmvc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
-import xyz.neopan.example.graphql.book.BookDataFetchers;
+import xyz.neopan.example.graphql.book.store.BookDataFetchers;
 
 /**
  * 依赖: {@code com.graphql-java:graphql-java-spring-boot-starter-webmvc}

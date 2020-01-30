@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderOptions;
 import org.jetbrains.annotations.NotNull;
-import xyz.neopan.example.graphql.book.BookDataFetchers;
 import xyz.neopan.example.graphql.book.model.Author;
+import xyz.neopan.example.graphql.book.store.BookDataFetchers;
 
 import java.util.List;
 import java.util.Map;

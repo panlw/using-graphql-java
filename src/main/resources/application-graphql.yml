@@ -1,3 +1,5 @@
+#xyz.gql.instrumentation: true
+
 # https://github.com/graphql-java-kickstart/graphql-spring-boot
 graphql.tools:
   schema-location-pattern: "graphql/schema/*.graphql"
@@ -43,25 +45,27 @@ graphql.playground:
     schema.disableComments: true
     tracing.hideTracingResponse: true
   tabs:
+    - name: signIn
+      query: classpath:graphql/usage/auth/signIn.gql
+      variables: classpath:graphql/usage/auth/signIn.var.json
+      responses: classpath:graphql/usage/auth/signIn.res.json
+    - name: subject
+      query: classpath:graphql/usage/auth/subject.gql
+      headers.xyz-token: ""
+    - name: signOut
+      query: classpath:graphql/usage/auth/signOut.gql
+      headers.xyz-token: ""
+
     - name: book
-      query: classpath:graphql/usage/book/book.graphql
+      query: classpath:graphql/usage/book/book.gql
     - name: allBooks
-      query: classpath:graphql/usage/book/allBooks.graphql
+      query: classpath:graphql/usage/book/allBooks.gql
     - name: addNewBook
-      query: classpath:graphql/usage/book/addNewBook.graphql
+      query: classpath:graphql/usage/book/addNewBook.gql
     - name: setBookName
-      query: classpath:graphql/usage/book/setBookName.graphql
+      query: classpath:graphql/usage/book/setBookName.gql
 
     - name: createPost
-      query: classpath:graphql/usage/blog/createPost.graphql
+      query: classpath:graphql/usage/blog/createPost.gql
     - name: comments
-      query: classpath:graphql/usage/blog/comments.graphql
-
-#    - name: Example Tab
-#      query: classpath:exampleQuery.graphql
-#      headers:
-#        SomeHeader: Some value
-#      variables: classpath:variables.json
-#      responses:
-#        - classpath:exampleResponse1.json
-#        - classpath:exampleResponse2.json
+      query: classpath:graphql/usage/blog/comments.gql

@@ -9,7 +9,7 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
-import xyz.neopan.example.graphql.book.BookDataFetchers;
+import xyz.neopan.example.graphql.book.store.BookDataFetchers;
 
 import java.io.IOException;
 import java.net.URL;

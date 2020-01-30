@@ -7,11 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import xyz.neopan.example.graphql.auth.kickstart.AuthKickstartConfig;
 import xyz.neopan.example.graphql.blog.kickstart.BlogKickstartConfig;
 import xyz.neopan.example.graphql.book.kickstart.BookKickstartConfig;
 
 // https://github.com/graphql-java-kickstart/graphql-java-servlet
 @Import({
+    AppKickstartConfig.class,
+    AuthKickstartConfig.class,
     BlogKickstartConfig.class,
     BookKickstartConfig.class,
 })

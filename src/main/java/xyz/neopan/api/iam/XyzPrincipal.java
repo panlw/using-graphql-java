@@ -32,16 +32,4 @@ public interface XyzPrincipal extends XyzTaggedId {
         return TAG;
     }
 
-    /**
-     * 访客ID
-     */
-    long GUEST_ID = 0L;
-
-    /**
-     * @return 访客？
-     */
-    default boolean isGuest() {
-        return getIdVal() == GUEST_ID;
-    }
-
 }

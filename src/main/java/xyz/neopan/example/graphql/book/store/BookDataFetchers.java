@@ -1,4 +1,4 @@
-package xyz.neopan.example.graphql.book;
+package xyz.neopan.example.graphql.book.store;
 
 import graphql.schema.DataFetcher;
 import lombok.extern.slf4j.Slf4j;

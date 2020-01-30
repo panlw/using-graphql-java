@@ -2,6 +2,7 @@ package xyz.neopan.api.iam;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 /**
  * 认证主体上下文
@@ -17,8 +18,8 @@ public interface XyzSubject extends XyzIamDetails, XyzIamGranted {
     XyzSubject GUEST = new XyzSubject() {
 
         @Override
-        public String getToken() {
-            return "";
+        public Optional<String> getToken() {
+            return Optional.empty();
         }
 
         @Override
@@ -30,12 +31,29 @@ public interface XyzSubject extends XyzIamDetails, XyzIamGranted {
         public boolean isGranted(String grant) {
             return false;
         }
+
+        @Override
+        public boolean isAllGranted(Collection<String> grants) {
+            return false;
+        }
+
+        @Override
+        public boolean isAnyGranted(Collection<String> grants) {
+            return false;
+        }
     };
 
     /**
-     * @return 客户端令牌
+     * @return 客户端认证令牌（访客没有认证令牌）
      */
-    String getToken();
+    Optional<String> getToken();
+
+    /**
+     * @return 访客？
+     */
+    default boolean isGuest() {
+        return !getToken().isPresent();
+    }
 
     /**
      * @return 所有身份
@@ -43,6 +61,11 @@ public interface XyzSubject extends XyzIamDetails, XyzIamGranted {
     default Collection<XyzPrincipal> getPrincipals() {
         return Collections.singletonList(getDetails());
     }
+
+    /**
+     * @return 主体信息
+     */
+    XyzIamDetails getDetails();
 
     @Override
     default String getIdp() {
@@ -58,10 +81,5 @@ public interface XyzSubject extends XyzIamDetails, XyzIamGranted {
     default String getName() {
         return getDetails().getName();
     }
-
-    /**
-     * @return 主体信息
-     */
-    XyzIamDetails getDetails();
 
 }

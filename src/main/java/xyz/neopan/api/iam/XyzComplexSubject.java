@@ -1,10 +1,13 @@
 package xyz.neopan.api.iam;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collection;
 import java.util.Optional;
 
 /**
+ * 多维授权体系（如角色加许可）的主体上下文
+ *
  * @author neo.pan
  * @since 2020/1/29
  */
@@ -16,28 +19,18 @@ public abstract class XyzComplexSubject implements XyzSubject {
     protected abstract Collection<? extends XyzIamGranted> getAllGranted();
 
     @Override
-    public boolean isGranted(String grant) {
+    public boolean isGranted(@NotNull String grant) {
         return getAllGranted().stream()
-            .filter(x -> isGrantable(x, grant)).findFirst()
-            .map(x -> x.isGranted(grant)).orElse(false);
-    }
-
-    private boolean isGrantable(XyzIamGranted granted, String grant) {
-        return !(granted instanceof NsGranted)
-            || ((NsGranted) granted).isGrantable(grant);
+            .anyMatch(x -> x.inScope(grant) && x.isGranted(grant));
     }
 
     /**
-     * @param ns 名字空间
+     * @param scope 授权域
      * @return 授权信息
      */
-    public Optional<? extends XyzIamGranted> getGranted(@Nullable String ns) {
-        return getAllGranted().stream().filter(x -> nsGrantable(x, ns)).findFirst();
-    }
-
-    private boolean nsGrantable(XyzIamGranted granted, @Nullable String ns) {
-        return ns == null || !(granted instanceof NsGranted)
-            || ns.equals(((NsGranted) granted).getGrantNs());
+    public Optional<? extends XyzIamGranted> getGranted(@NotNull String scope) {
+        return getAllGranted().stream()
+            .filter(x -> x.isScope(scope)).findFirst();
     }
 
 }

@@ -2,12 +2,15 @@ package xyz.neopan.example.graphql.auth.kickstart;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
+import lombok.val;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import xyz.neopan.api.gql.XyzGqlContext;
 import xyz.neopan.api.iam.XyzSubject;
 import xyz.neopan.api.iam.XyzSubjectStore;
-import xyz.neopan.example.graphql.auth.input.AuthnInput;
+import xyz.neopan.example.graphql.auth.input.AuthSignInInput;
 import xyz.neopan.example.graphql.auth.model.AuthSubject;
+import xyz.neopan.example.graphql.auth.store.AuthUserStore;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,19 +23,31 @@ class AuthMutationResolver implements GraphQLMutationResolver {
     @Autowired
     private XyzSubjectStore store;
 
-    CompletableFuture<XyzSubject> signIn(AuthnInput input) {
+    @Autowired
+    private AuthUserStore userStore;
+
+    CompletableFuture<XyzSubject> signIn(AuthSignInInput input) {
         return CompletableFuture.supplyAsync(() -> {
-            final XyzSubject subject = AuthSubject.newSubject(
-                input.toUser(), input.getGroups());
+            val subject = buildSubject(input);
             store.save(subject);
             return subject;
         });
     }
 
-    CompletableFuture<Void> signOut(DataFetchingEnvironment environment) {
-        return CompletableFuture.runAsync(() -> {
+    @NotNull
+    private XyzSubject buildSubject(AuthSignInInput input) {
+        val user = input.toUser();
+        val groups = userStore.getUserGroups(user);
+        return AuthSubject.newSubject(user, groups);
+    }
+
+    CompletableFuture<XyzSubject> signOut(DataFetchingEnvironment environment) {
+        return CompletableFuture.supplyAsync(() -> {
             final XyzGqlContext context = environment.getContext();
-            context.getXyzSubject().ifPresent(x -> store.clear(x.getToken()));
+            context.getXyzSubject()
+                .flatMap(XyzSubject::getToken)
+                .ifPresent(store::clear);
+            return XyzSubject.GUEST;
         });
     }
 

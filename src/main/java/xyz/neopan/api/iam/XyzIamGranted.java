@@ -1,13 +1,11 @@
 package xyz.neopan.api.iam;
 
-import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.util.StringUtils;
 
-import javax.annotation.Nullable;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 /**
  * 授权信息
@@ -18,9 +16,27 @@ import java.util.stream.Stream;
 public interface XyzIamGranted {
 
     /**
-     * 访客授权
+     * @return 授权域（空表示全局授权域）
      */
-    XyzIamGranted GUEST = grant -> false;
+    default Optional<String> getScope() {
+        return Optional.empty();
+    }
+
+    /**
+     * @param scope 授权域
+     * @return 是指定的授权域或全局域？
+     */
+    default boolean isScope(@NotNull String scope) {
+        return getScope().map(x -> x.equals(scope)).orElse(true);
+    }
+
+    /**
+     * @param grant 授权标识
+     * @return 指定的授权是否属于该授权域？
+     */
+    default boolean inScope(@NotNull String grant) {
+        return getScope().map(grant::startsWith).orElse(true);
+    }
 
     /**
      * @param grant 授权标识
@@ -33,61 +49,43 @@ public interface XyzIamGranted {
             throw new XyzIamException(grant);
     }
 
-    default boolean isAllGranted(String... grants) {
-        return Stream.of(grants).allMatch(this::isGranted);
+    default boolean isAllGranted(Collection<String> grants) {
+        return grants.stream().allMatch(this::isGranted);
     }
 
-    default void checkAllGranted(String... grants) throws XyzIamException {
+    default void checkAllGranted(Collection<String> grants) throws XyzIamException {
         if (!isAllGranted(grants))
-            throw new XyzIamException(Arrays.toString(grants));
+            throw new XyzIamException(grants.toString());
     }
 
-    default boolean isAnyGranted(String... grants) {
-        return Stream.of(grants).anyMatch(this::isGranted);
+    default boolean isAnyGranted(Collection<String> grants) {
+        return grants.stream().anyMatch(this::isGranted);
     }
 
-    default void checkAnyGranted(String... grants) throws XyzIamException {
+    default void checkAnyGranted(Collection<String> grants) throws XyzIamException {
         if (!isAnyGranted(grants))
-            throw new XyzIamException(Arrays.toString(grants));
+            throw new XyzIamException(grants.toString());
     }
 
-    interface NsGranted extends XyzIamGranted {
+    /**
+     * {@link XyzIamGranted}的简单实现
+     */
+    @Value(staticConstructor = "of")
+    final class SimpleGranted implements XyzIamGranted {
 
         /**
-         * @return 权限标识的名字空间(简单授权体系可为空)
+         * 授权域（即授权标识的名字前缀）
          */
-        @Nullable
-        String getGrantNs();
+        private String scope;
 
         /**
-         * @param grant 授权标识
-         * @return 是否支持？
+         * 授权标识（含授权域前缀）
          */
-        default boolean isGrantable(@NotNull String grant) {
-            final String ns = getGrantNs();
-            if (StringUtils.isEmpty(ns))
-                return true;
-            return grant.startsWith(ns);
-        }
-    }
+        private Set<String> grants;
 
-    @RequiredArgsConstructor(staticName = "of")
-    class SimpleGranted implements NsGranted {
-
-        /**
-         * 授权标识的名字空间
-         */
-        private final String ns;
-
-        /**
-         * 授权的对象标识集合(含名字空间)
-         */
-        private final Set<String> grants;
-
-        @Nullable
         @Override
-        public String getGrantNs() {
-            return ns;
+        public Optional<String> getScope() {
+            return Optional.of(scope);
         }
 
         @Override

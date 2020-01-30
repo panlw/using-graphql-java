@@ -4,9 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.val;
 import xyz.neopan.api.iam.XyzIamDetails;
-import xyz.neopan.api.iam.XyzSimpleSubject;
+import xyz.neopan.api.iam.XyzSimplexSubject;
 import xyz.neopan.api.iam.XyzSubject;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,11 +17,17 @@ import java.util.UUID;
  */
 @Value
 @EqualsAndHashCode(of = "details", callSuper = false)
-public class AuthSubject extends XyzSimpleSubject {
+public class AuthSubject extends XyzSimplexSubject {
 
-    private String token;
-    private XyzIamDetails details;
-    private SimpleGranted granted;
+    private final String token = UUID.randomUUID().toString();
+
+    @Override
+    public final Optional<String> getToken() {
+        return Optional.of(token);
+    }
+
+    private final XyzIamDetails details;
+    private final SimpleGranted granted;
 
     /**
      * @param details 用户信息
@@ -28,9 +35,8 @@ public class AuthSubject extends XyzSimpleSubject {
      * @return 认证主体上下文
      */
     public static XyzSubject newSubject(XyzIamDetails details, Set<String> groups) {
-        val token = UUID.randomUUID().toString();
         val granted = SimpleGranted.of(null, groups);
-        return new AuthSubject(token, details, granted);
+        return new AuthSubject(details, granted);
     }
 
 }
