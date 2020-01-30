@@ -2,13 +2,11 @@ package xyz.neopan.example.graphql.auth.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-import lombok.val;
 import xyz.neopan.api.iam.XyzIamDetails;
-import xyz.neopan.api.iam.XyzSimplexSubject;
+import xyz.neopan.api.iam.XyzIamGranted;
 import xyz.neopan.api.iam.XyzSubject;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -16,8 +14,8 @@ import java.util.UUID;
  * @since 2020/1/29
  */
 @Value
-@EqualsAndHashCode(of = "details", callSuper = false)
-public class AuthSubject extends XyzSimplexSubject {
+@EqualsAndHashCode(callSuper = false)
+public class AuthSubject extends XyzSubject {
 
     private final String token = UUID.randomUUID().toString();
 
@@ -26,17 +24,14 @@ public class AuthSubject extends XyzSimplexSubject {
         return Optional.of(token);
     }
 
-    private final XyzIamDetails details;
-    private final SimpleGranted granted;
+    /**
+     * 授权信息
+     */
+    private final XyzIamGranted granted;
 
     /**
-     * @param details 用户信息
-     * @param groups  加入的用户组
-     * @return 认证主体上下文
+     * 主体信息
      */
-    public static XyzSubject newSubject(XyzIamDetails details, Set<String> groups) {
-        val granted = SimpleGranted.of(null, groups);
-        return new AuthSubject(details, granted);
-    }
+    private final XyzIamDetails details;
 
 }

@@ -12,13 +12,17 @@ import java.util.Optional;
  */
 public interface XyzGqlContext extends GraphQLContext {
 
+    /**
+     * @deprecated 始终返回空，请使用 {@link #getXyzSubject()}
+     */
+    @Deprecated
     @Override
     default Optional<Subject> getSubject() {
         return Optional.empty();
     }
 
     /**
-     * @return 认证主体上下文
+     * @return 认证主体（为空即访客）
      */
     Optional<XyzSubject> getXyzSubject();
 

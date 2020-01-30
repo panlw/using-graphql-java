@@ -6,12 +6,15 @@ import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import xyz.neopan.api.gql.XyzGqlContext;
+import xyz.neopan.api.iam.XyzAuthnException;
+import xyz.neopan.api.iam.XyzIamGranted;
 import xyz.neopan.api.iam.XyzSubject;
 import xyz.neopan.api.iam.XyzSubjectStore;
 import xyz.neopan.example.graphql.auth.input.AuthSignInInput;
 import xyz.neopan.example.graphql.auth.model.AuthSubject;
 import xyz.neopan.example.graphql.auth.store.AuthUserStore;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,17 +31,20 @@ class AuthMutationResolver implements GraphQLMutationResolver {
 
     CompletableFuture<XyzSubject> signIn(AuthSignInInput input) {
         return CompletableFuture.supplyAsync(() -> {
-            val subject = buildSubject(input);
+            val subject = buildSubject(input).orElseThrow(() ->
+                XyzAuthnException.UNAUTHORIZED);
             store.save(subject);
             return subject;
         });
     }
 
     @NotNull
-    private XyzSubject buildSubject(AuthSignInInput input) {
-        val user = input.toUser();
-        val groups = userStore.getUserGroups(user);
-        return AuthSubject.newSubject(user, groups);
+    private Optional<XyzSubject> buildSubject(AuthSignInInput input) {
+        return userStore.getUser(input).map(user -> {
+            val groups = userStore.getUserGroups(user);
+            val granted = XyzIamGranted.newGranted(groups);
+            return new AuthSubject(granted, user);
+        });
     }
 
     CompletableFuture<XyzSubject> signOut(DataFetchingEnvironment environment) {

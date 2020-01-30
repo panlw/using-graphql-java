@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import xyz.neopan.api.iam.XyzIamDetails;
+import xyz.neopan.api.iam.XyzIamUserId;
 
 /**
  * @author neo.pan
@@ -11,10 +12,10 @@ import xyz.neopan.api.iam.XyzIamDetails;
  */
 @Value
 @Builder
-@EqualsAndHashCode(of = "idVal")
+@EqualsAndHashCode(of = "id")
 public class AuthUser implements XyzIamDetails {
 
-    private long idVal;
+    private XyzIamUserId id;
     private String name;
     private String phone;
 

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * 切换运行的身份信息及安全上下文
+ * 切换运行身份
  *
  * @author neo.pan
  * @since 2020/1/29

@@ -2,6 +2,7 @@ package xyz.neopan.api.gql;
 
 import org.dataloader.DataLoader;
 import org.dataloader.DataLoaderRegistry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ public interface XyzDataLoaderRegistryBuilder {
     /**
      * @return 数据加载器注册表
      */
+    @NotNull
     DataLoaderRegistry build();
 
     /**
@@ -48,6 +50,7 @@ public interface XyzDataLoaderRegistryBuilder {
             return this;
         }
 
+        @NotNull
         @Override
         public DataLoaderRegistry build() {
             DataLoaderRegistry registry = new DataLoaderRegistry();

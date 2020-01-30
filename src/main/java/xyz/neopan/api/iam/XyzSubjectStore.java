@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * 安全上下文存储服务
+ * 认证主体存储服务
  *
  * @author neo.pan
  * @since 2020/1/29
@@ -17,20 +17,20 @@ import java.util.concurrent.ConcurrentHashMap;
 public interface XyzSubjectStore {
 
     /**
-     * @param subject 认证上下文
+     * @param subject 认证主体
      */
     void save(XyzSubject subject);
 
     /**
-     * @param token 客户端认证令牌
-     * @return 认证上下文
+     * @param token 会话令牌
+     * @return 认证主体
      */
     Optional<XyzSubject> load(@Nullable String token);
 
     /**
-     * 清除认证上下文
+     * 清除认证主体
      *
-     * @param token 客户端认证令牌
+     * @param token 会话令牌
      */
     void clear(@NotNull String token);
 

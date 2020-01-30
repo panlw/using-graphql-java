@@ -1,35 +1,49 @@
 package xyz.neopan.api.iam;
 
-import xyz.neopan.api.XyzTaggedId;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * 身份
+ * 认证身份
  *
  * @author neo.pan
  * @since 2020/1/29
  */
-public interface XyzPrincipal extends XyzTaggedId {
+public abstract class XyzPrincipal {
 
     /**
-     * 缺省的 IdP 标识
+     * @return IdP 给出的身份标识数据类型
      */
-    String IAM = "iam";
+    @NotNull
+    public abstract Class<?> getValType();
 
     /**
      * @return IdP 标识
      */
-    default String getIdp() {
-        return IAM;
-    }
+    @NotNull
+    public abstract String getIdp();
 
     /**
-     * 缺省的身份ID标签
+     * @return IdP 给出的身份标识
      */
-    String TAG = "usr";
+    @NotNull
+    public abstract Object getVal();
 
     @Override
-    default String getIdTag() {
-        return TAG;
+    public String toString() {
+        return getVal().toString();
+    }
+
+    @Override
+    public int hashCode() {
+        return getVal().hashCode();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof XyzPrincipal))
+            return false;
+        return getVal().equals(((XyzPrincipal) obj).getVal());
     }
 
 }

@@ -1,9 +1,10 @@
 package xyz.neopan.example.graphql.auth.input;
 
 import lombok.Data;
-import lombok.val;
-import xyz.neopan.api.XyzTaggedId;
+import xyz.neopan.api.iam.XyzIamUserId;
 import xyz.neopan.example.graphql.auth.model.AuthUser;
+
+import java.util.Optional;
 
 /**
  * @author neo.pan
@@ -16,12 +17,12 @@ public class AuthSignInInput {
     private String name;
     private String phone;
 
-    public AuthUser toUser() {
-        val idVal = XyzTaggedId.toIdVal(id);
-        return AuthUser.builder()
-            .idVal(idVal).name(name)
-            .phone(phone)
-            .build();
+    public Optional<AuthUser> toUser() {
+        return XyzIamUserId.of(id).map(id ->
+            AuthUser.builder()
+                .id(id).name(name)
+                .phone(phone)
+                .build());
     }
 
 }

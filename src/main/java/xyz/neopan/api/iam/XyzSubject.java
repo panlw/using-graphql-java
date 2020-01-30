@@ -1,21 +1,67 @@
 package xyz.neopan.api.iam;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 
 /**
- * 认证主体上下文
+ * 认证主体
  *
  * @author neo.pan
  * @since 2020/1/29
  */
-public interface XyzSubject extends XyzIamDetails, XyzIamGranted {
+public abstract class XyzSubject {
+
+    /**
+     * @return 会话令牌（为空即访客）
+     */
+    public abstract Optional<String> getToken();
+
+    /**
+     * @return 访客？
+     */
+    public final boolean isGuest() {
+        return !getToken().isPresent();
+    }
+
+    /**
+     * @return 授权信息
+     */
+    public abstract XyzIamGranted getGranted();
+
+    /**
+     * @return 主体信息
+     */
+    public abstract XyzIamDetails getDetails();
+
+    /**
+     * @return ID
+     */
+    public XyzPrincipal getId() {
+        return getDetails().getId();
+    }
+
+    /**
+     * @return 显示名
+     */
+    public String getName() {
+        return getDetails().getName();
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof XyzSubject))
+            return false;
+        return getId().equals(((XyzSubject) obj).getId());
+    }
 
     /**
      * 访客
      */
-    XyzSubject GUEST = new XyzSubject() {
+    public static final XyzSubject GUEST = new XyzSubject() {
 
         @Override
         public Optional<String> getToken() {
@@ -23,63 +69,34 @@ public interface XyzSubject extends XyzIamDetails, XyzIamGranted {
         }
 
         @Override
+        public XyzPrincipal getId() {
+            return null;
+        }
+
+        @Override
+        public String getName() {
+            return null;
+        }
+
+        @Override
+        public XyzIamGranted getGranted() {
+            throw new UnsupportedOperationException("[XYZ-IAM] I am GUEST.");
+        }
+
+        @Override
         public XyzIamDetails getDetails() {
-            return XyzIamDetails.GUEST;
+            throw new UnsupportedOperationException("[XYZ-IAM] I am GUEST.");
         }
 
         @Override
-        public boolean isGranted(String grant) {
-            return false;
+        public int hashCode() {
+            throw new UnsupportedOperationException("[XYZ-IAM] I am GUEST.");
         }
 
         @Override
-        public boolean isAllGranted(Collection<String> grants) {
-            return false;
-        }
-
-        @Override
-        public boolean isAnyGranted(Collection<String> grants) {
-            return false;
+        public boolean equals(Object obj) {
+            throw new UnsupportedOperationException("[XYZ-IAM] I am GUEST.");
         }
     };
-
-    /**
-     * @return 客户端认证令牌（访客没有认证令牌）
-     */
-    Optional<String> getToken();
-
-    /**
-     * @return 访客？
-     */
-    default boolean isGuest() {
-        return !getToken().isPresent();
-    }
-
-    /**
-     * @return 所有身份
-     */
-    default Collection<XyzPrincipal> getPrincipals() {
-        return Collections.singletonList(getDetails());
-    }
-
-    /**
-     * @return 主体信息
-     */
-    XyzIamDetails getDetails();
-
-    @Override
-    default String getIdp() {
-        return getDetails().getIdp();
-    }
-
-    @Override
-    default long getIdVal() {
-        return getDetails().getIdVal();
-    }
-
-    @Override
-    default String getName() {
-        return getDetails().getName();
-    }
 
 }

@@ -29,7 +29,12 @@
 
 > Resolve authentication & authorization
 
-- TODO
+- https://github.com/graphql-java-kickstart/samples/blob/master/subscription-with-authentication
+- https://www.howtographql.com/graphql-java/5-authentication/
+
+> Resolve custom scalar
+
+- `graphql.schema.GraphQLEnumType`
 
 ## [Using WebSocket Subscription](https://github.com/graphql-java-kickstart/graphql-spring-boot/blob/master/example-graphql-subscription/)
 

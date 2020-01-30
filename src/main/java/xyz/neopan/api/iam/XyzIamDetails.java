@@ -1,26 +1,17 @@
 package xyz.neopan.api.iam;
 
 /**
+ * 主体信息
+ *
  * @author neo.pan
  * @since 2020/1/29
  */
-public interface XyzIamDetails extends XyzPrincipal {
+public interface XyzIamDetails {
 
     /**
-     * 访客
+     * @return ID
      */
-    XyzIamDetails GUEST = new XyzIamDetails() {
-
-        @Override
-        public long getIdVal() {
-            return 0L;
-        }
-
-        @Override
-        public String getName() {
-            return "";
-        }
-    };
+    XyzPrincipal getId();
 
     /**
      * @return 显示名

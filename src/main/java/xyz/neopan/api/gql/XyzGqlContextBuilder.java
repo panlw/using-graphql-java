@@ -40,7 +40,7 @@ public class XyzGqlContextBuilder implements GraphQLServletContextBuilder {
     @Override
     public GraphQLContext build(
         HttpServletRequest request, HttpServletResponse response) {
-        val subject = getSubject(request).orElse(XyzSubject.GUEST);
+        val subject = getSubject(request).orElse(null);
         return XyzGqlHttpContext.builder()
             .subject(subject)
             .dataLoaderRegistry(registryBuilder.build())
@@ -61,7 +61,7 @@ public class XyzGqlContextBuilder implements GraphQLServletContextBuilder {
 
     @Override
     public GraphQLContext build(Session session, HandshakeRequest handshakeRequest) {
-        val subject = getSubject(handshakeRequest).orElse(XyzSubject.GUEST);
+        val subject = getSubject(handshakeRequest).orElse(null);
         return XyzGqlSockContext.builder()
             .subject(subject)
             .dataLoaderRegistry(registryBuilder.build())
@@ -81,7 +81,6 @@ public class XyzGqlContextBuilder implements GraphQLServletContextBuilder {
     public GraphQLContext build() {
         return XyzGqlHttpContext.builder()
             .dataLoaderRegistry(registryBuilder.build())
-            .subject(XyzSubject.GUEST)
             .build();
     }
 

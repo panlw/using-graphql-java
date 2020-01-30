@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.dataloader.DataLoaderRegistry;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import xyz.neopan.api.iam.XyzSubject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,9 +28,9 @@ class XyzGqlHttpContext extends XyzGqlBaseContext
 
     @Builder
     XyzGqlHttpContext(
-        @NotNull HttpServletRequest httpServletRequest,
-        @NotNull HttpServletResponse httpServletResponse,
-        @NotNull XyzSubject subject, DataLoaderRegistry dataLoaderRegistry) {
+        HttpServletRequest httpServletRequest,
+        HttpServletResponse httpServletResponse,
+        @Nullable XyzSubject subject, DataLoaderRegistry dataLoaderRegistry) {
         super(subject, dataLoaderRegistry);
         this.httpServletRequest = httpServletRequest;
         this.httpServletResponse = httpServletResponse;

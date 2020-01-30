@@ -4,7 +4,7 @@ import graphql.servlet.context.GraphQLWebSocketContext;
 import lombok.Builder;
 import lombok.Getter;
 import org.dataloader.DataLoaderRegistry;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import xyz.neopan.api.iam.XyzSubject;
 
 import javax.websocket.Session;
@@ -23,8 +23,8 @@ class XyzGqlSockContext extends XyzGqlBaseContext
 
     @Builder
     XyzGqlSockContext(
-        @NotNull Session session, @NotNull HandshakeRequest handshakeRequest,
-        @NotNull XyzSubject subject, DataLoaderRegistry dataLoaderRegistry) {
+        Session session, HandshakeRequest handshakeRequest,
+        @Nullable XyzSubject subject, DataLoaderRegistry dataLoaderRegistry) {
         super(subject, dataLoaderRegistry);
         this.session = session;
         this.handshakeRequest = handshakeRequest;

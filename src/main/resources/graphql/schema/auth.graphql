@@ -1,14 +1,14 @@
+scalar UID
+
+# 若是访客，则所有属性均为`null`
 type AuthSubject {
   token: String
-  guest: Boolean
-
-  idp: String!
-  id: ID!
-  name: String!
+  name: String
+  id: UID
 }
 
 input AuthSignInInput {
-  id: ID!
+  id: String!
   name: String!
   phone: String
 }

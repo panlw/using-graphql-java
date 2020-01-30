@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import xyz.neopan.api.gql.XyzDataLoaderRegistryBuilder;
 import xyz.neopan.api.gql.XyzGqlContextBuilder;
+import xyz.neopan.api.iam.XyzIamScalars;
 import xyz.neopan.api.iam.XyzSubjectStore;
 
 /**
@@ -16,6 +18,7 @@ import xyz.neopan.api.iam.XyzSubjectStore;
  * @since 2020/1/30
  */
 @Slf4j
+@Import({XyzIamScalars.class})
 public class AppKickstartConfig {
 
     @Bean
