@@ -31,7 +31,7 @@ import xyz.neopan.example.graphql.book.kickstart.BookKickstartConfig;
 //})
 //@SpringBootApplication(
 //    exclude = {
-//        GraphQLJavaToolsAutoConfiguration.class,
+//        GraphQLWebAutoConfiguration.class,
 //    }
 //)
 
