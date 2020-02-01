@@ -36,9 +36,15 @@
 
 - `graphql.schema.GraphQLEnumType`
 
-## [Using WebSocket Subscription](https://github.com/graphql-java-kickstart/graphql-spring-boot/blob/master/example-graphql-subscription/)
+> Resolve custom directives (TODO)
 
-- TODO
+> https://www.graphql-java-kickstart.com/tools/directives/
+
+## Using WebSocket Subscription (TODO)
+
+- https://www.graphql-java.com/documentation/v13/subscriptions/
+- https://github.com/graphql-java-kickstart/samples/blob/master/subscription-with-authentication/
+- https://github.com/graphql-java-kickstart/graphql-spring-boot/blob/master/example-graphql-subscription/
 
 ## Unrecommended
 
