@@ -9,14 +9,16 @@
 @Component
 class XyzIamContextServletListener implements GraphQLServletListener {
 
+    private static final RequestCallback CLEAR_CONTEXT = new RequestCallback() {
+        void onFinally(HttpServletRequest request, HttpServletResponse response) {
+            XyzIamContextHolder.clearContext();
+        }
+    }
+
     RequestCallback onRequest(HttpServletRequest request, HttpServletResponse response) {
         final XyzIamContext context = XyzIamContextHolder.getContext();
         loadContext(request).ifPresent(context::setSubject)
-        return new RequestCallback() {
-            void onFinally(HttpServletRequest request, HttpServletResponse response) {
-                XyzIamContextHolder.clearContext();
-            }
-        }
+        return CLEAR_CONTEXT;
     }
 
     private Optional<XyzIamSubject> loadContext(HttpServletRequest request) {
