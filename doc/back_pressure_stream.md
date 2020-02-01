@@ -123,11 +123,11 @@ UNSUBSCRIBED
 ## Back-pressure Stream: A -> B
 
 1. prepare
-    1. (A) Publisher#subscribe(Subscriber<T>)
+    1. (A) Publisher#subscribe(Subscriber)
         1. `subscription = createSubscription(publisher, subscriber)`
         2. `changeState(SUBSCRIBING)` and `subscriber.onSubscribe(Subscription)`
         3. `changeState(NO_DEMAND)` to waiting for demands
-    2. (B) Subscriber<T>#onSubscribe(Subscription)
+    2. (B) Subscriber#onSubscribe(Subscription)
         1. `changeState(REQUESTED)` and `subscription.request(n)` to signal publisher for `n` demands
 
 2. working
@@ -136,10 +136,10 @@ UNSUBSCRIBED
         2. `subscriber.onNext(data)` if data is available
         3. `changeState(READING)` if handled demand number < `n`,
            or else pause data producing and `changeState(NO_DEMAND)`
-    2. (B) Subscriber<T>#onNext(T data)
+    2. (B) Subscriber#onNext(data)
         1. consume data
-        2. `changeState(REQUESTED)` and `subscription.request(n)` if more data is needed,
-           or else `changeState(COMPLETED)` and `subscription.cancel()` if no more data is needed
+        2. `changeState(REQUESTED)` and `subscription.request(n)` for more data if needed,
+           or else `changeState(COMPLETED)` and `subscription.cancel()` to end subscription
 
 3. finally
     1. (A) Publisher.Subscription#cancel()
