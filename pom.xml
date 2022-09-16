@@ -17,7 +17,7 @@
   <properties>
     <java.version>1.8</java.version>
     <guava.version>[30.0-jre,)</guava.version>
-    <graphql.version>13.0</graphql.version>
+    <graphql.version>17.4</graphql.version>
     <graphql.webmvc.version>1.0</graphql.webmvc.version>
     <graphql.kickstart.version>6.0.1</graphql.kickstart.version>
   </properties>
